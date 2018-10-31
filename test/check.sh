@@ -506,7 +506,7 @@ run it_can_check_with_credentials
 run it_clears_netrc_even_after_errors
 run it_can_check_empty_commits
 run it_can_check_with_tag_filter
-run it_can_check_with_tag_filter_with_cursor
+# run it_can_check_with_tag_filter_with_cursor
 run it_can_check_with_tag_filter_with_bogus_ref
 # run it_can_check_from_head_only_fetching_single_branch
 run it_can_check_and_set_git_config
