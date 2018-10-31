@@ -492,7 +492,7 @@ it_can_check_and_set_git_config() {
 run it_can_check_from_head
 run it_can_check_from_a_ref
 run it_can_check_from_a_first_commit_in_repo
-# run it_can_check_from_a_bogus_sha
+run it_can_check_from_a_bogus_sha
 run it_skips_ignored_paths
 run it_checks_given_paths
 run it_checks_given_glob_paths
@@ -503,11 +503,11 @@ run it_skips_marked_commits_with_no_version
 run it_does_not_skip_marked_commits_when_disable_skip_configured
 run it_fails_if_key_has_password
 run it_can_check_with_credentials
-# run it_clears_netrc_even_after_errors
+run it_clears_netrc_even_after_errors
 run it_can_check_empty_commits
 run it_can_check_with_tag_filter
 run it_can_check_with_tag_filter_with_cursor
-# run it_can_check_with_tag_filter_with_bogus_ref
+run it_can_check_with_tag_filter_with_bogus_ref
 # run it_can_check_from_head_only_fetching_single_branch
 run it_can_check_and_set_git_config
 run it_can_check_from_a_ref_and_only_show_merge_commit
