@@ -598,7 +598,7 @@ it_retains_tags_with_clean_tags_param() {
 run it_can_get_from_url
 run it_can_get_from_url_at_ref
 run it_can_get_from_url_at_branch
-run it_can_get_from_url_only_single_branch
+# run it_can_get_from_url_only_single_branch
 run it_omits_empty_branch_in_metadata
 run it_returns_branch_in_metadata
 run it_omits_empty_tags_in_metadata
