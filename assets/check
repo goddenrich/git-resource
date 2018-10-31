@@ -71,9 +71,12 @@ if [ "$skip_ci_disabled" != "true" ]; then
 fi
 
 if [ -n "$tag_filter" ]; then
+  init_tag=$(git tag --list "phabricator/diff/*" --sort=taggerdate | head -n 1)
+  # need to do something if init_tag is empty (ie. no tags)
   {
     if [ -n "$ref" ]; then
-      git tag --list "$tag_filter" --sort=creatordate --contains $ref
+      ref_for_search=$(sed 's#/#\\/#g' <<< $ref)
+      git tag --list "$tag_filter" --sort=-creatordate | sed --e "/$ref_for_search/q"
     else
       git tag --list "$tag_filter" --sort=creatordate | tail -1
     fi
