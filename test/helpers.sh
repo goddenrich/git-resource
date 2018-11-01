@@ -337,6 +337,19 @@ check_uri_with_tag_filter() {
   }" | ${resource_dir}/check | tee /dev/stderr
 }
 
+check_uri_with_tag_filter_given_branch() {
+  local uri=$1
+  local tag_filter=$2
+  local branch=$3
+  jq -n "{
+    source: {
+      uri: $(echo $uri | jq -R .),
+      tag_filter: $(echo $tag_filter | jq -R .),
+      branch: $(echo $branch | jq -R .)
+    }
+  }" | ${resource_dir}/check | tee /dev/stderr
+}
+
 check_uri_with_tag_filter_from() {
   local uri=$1
   local tag_filter=$2
