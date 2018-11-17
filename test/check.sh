@@ -19,7 +19,7 @@ it_can_check_from_head_only_fetching_single_branch() {
 
   local cachedir="$TMPDIR/git-resource-repo-cache"
 
-  check_uri $repo | jq -e "
+  check_uri_with_branch $repo "master" | jq -e "
     . == [{ref: $(echo $ref | jq -R .)}]
   "
 
@@ -452,7 +452,6 @@ it_can_check_with_tag_filter_with_cursor() {
   local ref13=$(make_commit $repo)
 
   x=$(check_uri_with_tag_filter_from $repo "*-staging" "2.0-staging")
-  # echo $x
   check_uri_with_tag_filter_from $repo "*-staging" "2.0-staging" | jq -e '
     . == [{ref: "2.0-staging"}, {ref: "3.0-staging"}]
   '
@@ -497,26 +496,6 @@ it_can_check_with_tag_filter_over_all_branches_with_cursor() {
 
   check_uri_with_tag_filter_from $repo "*-staging" "2.0-staging" | jq -e '
     . == [{ref: "2.0-staging"}, {ref: "3.0-staging"}]
-  '
-}
-
-it_ignores_tags_on_other_branches_when_branch_specified() {
-  local repo=$(init_repo)
-  local ref1=$(make_commit $repo)
-  local ref2=$(make_annotated_tag $repo "1.0-staging" "a tag")
-  local ref3=$(make_commit $repo)
-  local ref4=$(make_annotated_tag $repo "1.0-production" "another tag")
-  local ref5=$(make_commit $repo)
-  local ref6=$(make_annotated_tag $repo "2.0-staging" "tag 3")
-  local ref7=$(make_commit $repo)
-  local ref8=$(make_annotated_tag $repo "2.0-production" "tag 4")
-  local ref9=$(make_commit_to_branch $repo bogus)
-  local ref10=$(make_annotated_tag $repo "3.0-staging" "tag 5")
-  local ref11=$(make_commit_to_branch $repo bogus)
-  local ref12=$(make_annotated_tag $repo "3.0-production" "tag 6")
-
-  check_uri_with_tag_filter_given_branch $repo "*-staging" "master" | jq -e '
-    . == [{ref: "2.0-staging"}]
   '
 }
 
@@ -573,9 +552,8 @@ run it_can_check_with_tag_filter
 run it_can_check_with_tag_filter_with_cursor
 run it_can_check_with_tag_filter_over_all_branches
 run it_can_check_with_tag_filter_over_all_branches_with_cursor
-# run it_ignores_tags_on_other_branches_when_branch_specified
 run it_can_check_with_tag_filter_with_bogus_ref
-# run it_can_check_from_head_only_fetching_single_branch
+run it_can_check_from_head_only_fetching_single_branch
 run it_can_check_and_set_git_config
 run it_can_check_from_a_ref_and_only_show_merge_commit
 run it_can_check_from_a_ref_with_paths_merged_in
